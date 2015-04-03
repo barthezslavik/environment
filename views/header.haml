@@ -1,0 +1,25 @@
+%header#header
+  %ul.header-inner
+    %li#menu-trigger{"data-trigger" => "#sidebar"}
+      .line-wrap
+        .line.top
+        .line.center
+        .line.bottom
+    %li.pull-right
+      %ul.top-menu
+        %li#toggle-width
+          .toggle-switch
+            %input#tw-switch{hidden: "hidden", type: "checkbox"}/
+            %label.ts-helper{for: "tw-switch"}
+        %li#top-search
+          %a.tm-search{href: ""}
+        = partial :messages
+        = partial :notifications
+        = partial :tasks
+        = partial :options
+
+        %li#chat-trigger.hidden-xs{"data-trigger" => "#chat"}
+          %a.tm-chat{href: ""}
+  #top-search-wrap
+    %input{type: "text"}/
+    %i#top-search-close ×

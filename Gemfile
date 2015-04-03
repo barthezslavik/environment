@@ -6,6 +6,7 @@ gem "sinatra-contrib"
 gem "haml"
 gem "json"
 gem "faker"
+gem "sinatra-partial"
 
 group :development do
   gem "rake", "~> 10.0"

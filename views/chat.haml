@@ -1,0 +1,99 @@
+%aside#chat
+  %ul.tab-nav.tn-justified{role: "tablist"}
+    %li.active{role: "presentation"}
+      %a{"aria-controls" => "friends", "data-toggle" => "tab", href: "#friends", role: "tab"} Friends
+    %li{role: "presentation"}
+      %a{"aria-controls" => "online", "data-toggle" => "tab", href: "#online", role: "tab"} Online Now
+  .chat-search
+    .fg-line
+      %input.form-control{placeholder: "Search People", type: "text"}/
+  .tab-content
+    #friends.tab-pane.fade.in.active{role: "tabpanel"}
+      .listview
+        %a.lv-item{href: ""}
+          .media
+            .pull-left.p-relative
+              %img.lv-img-sm{alt: "", src: "img/profile-pics/2.jpg"}/
+              %i.chat-status-busy
+            .media-body
+              .lv-title Jonathan Morris
+              %small.lv-small Available
+        %a.lv-item{href: ""}
+          .media
+            .pull-left
+              %img.lv-img-sm{alt: "", src: "img/profile-pics/1.jpg"}/
+            .media-body
+              .lv-title David Belle
+              %small.lv-small Last seen 3 hours ago
+        %a.lv-item{href: ""}
+          .media
+            .pull-left.p-relative
+              %img.lv-img-sm{alt: "", src: "img/profile-pics/3.jpg"}/
+              %i.chat-status-online
+            .media-body
+              .lv-title Fredric Mitchell Jr.
+              %small.lv-small Availble
+        %a.lv-item{href: ""}
+          .media
+            .pull-left.p-relative
+              %img.lv-img-sm{alt: "", src: "img/profile-pics/4.jpg"}/
+              %i.chat-status-online
+            .media-body
+              .lv-title Glenn Jecobs
+              %small.lv-small Availble
+        %a.lv-item{href: ""}
+          .media
+            .pull-left
+              %img.lv-img-sm{alt: "", src: "img/profile-pics/5.jpg"}/
+            .media-body
+              .lv-title Bill Phillips
+              %small.lv-small Last seen 3 days ago
+        %a.lv-item{href: ""}
+          .media
+            .pull-left
+              %img.lv-img-sm{alt: "", src: "img/profile-pics/6.jpg"}/
+            .media-body
+              .lv-title Wendy Mitchell
+              %small.lv-small Last seen 2 minutes ago
+        %a.lv-item{href: ""}
+          .media
+            .pull-left.p-relative
+              %img.lv-img-sm{alt: "", src: "img/profile-pics/7.jpg"}/
+              %i.chat-status-busy
+            .media-body
+              .lv-title Teena Bell Ann
+              %small.lv-small Busy
+    #online.tab-pane.fade{role: "tabpanel"}
+      .listview
+        %a.lv-item{href: ""}
+          .media
+            .pull-left.p-relative
+              %img.lv-img-sm{alt: "", src: "img/profile-pics/2.jpg"}/
+              %i.chat-status-busy
+            .media-body
+              .lv-title Jonathan Morris
+              %small.lv-small Available
+        %a.lv-item{href: ""}
+          .media
+            .pull-left.p-relative
+              %img.lv-img-sm{alt: "", src: "img/profile-pics/3.jpg"}/
+              %i.chat-status-online
+            .media-body
+              .lv-title Fredric Mitchell Jr.
+              %small.lv-small Availble
+        %a.lv-item{href: ""}
+          .media
+            .pull-left.p-relative
+              %img.lv-img-sm{alt: "", src: "img/profile-pics/4.jpg"}/
+              %i.chat-status-online
+            .media-body
+              .lv-title Glenn Jecobs
+              %small.lv-small Availble
+        %a.lv-item{href: ""}
+          .media
+            .pull-left.p-relative
+              %img.lv-img-sm{alt: "", src: "img/profile-pics/7.jpg"}/
+              %i.chat-status-busy
+            .media-body
+              .lv-title Teena Bell Ann
+              %small.lv-small Busy
