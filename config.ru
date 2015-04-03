@@ -14,5 +14,5 @@ require "find"
 end
 
 # Load app
-require "trader"
-run Trader
+require "app"
+run App
