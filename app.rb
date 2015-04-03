@@ -3,7 +3,7 @@ class App < Sinatra::Base
   register Sinatra::Partial
 
   get "/" do
-    haml :start
+    haml :dashboard
   end
 
   get "/environment" do
