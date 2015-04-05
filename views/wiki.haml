@@ -1,11 +1,17 @@
-- @counter = 0
+/- @counter = 0
+/- @data.each_with_index do |d,i|
+/  - unless d["title"].empty?
+/    - if d["title"].include? "Википедия"
+/      /= d.inspect
+/      /= Time.at(d["lastVisitTime"]).to_datetime
+/      - @counter += 1
+/      = @counter
+/      = d["title"]
+/      %br
 
-- @data.each_with_index do |d,i|
-  - unless d["title"].empty?
-    - if d["title"].include? "Википедия"
-      /= d.inspect
-      /= Time.at(d["lastVisitTime"]).to_datetime
-      - @counter += 1
-      = @counter
-      = d["title"]
-      %br
+- @data = []
+- @rs.each do |row|
+  - @data << row[2] if row[1].include?("wiki")
+
+- @data.each do |d|
+  = d.inspect

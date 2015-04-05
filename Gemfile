@@ -7,6 +7,7 @@ gem "haml"
 gem "json"
 gem "faker"
 gem "sinatra-partial"
+gem "sqlite3"
 
 group :development do
   gem "rake", "~> 10.0"

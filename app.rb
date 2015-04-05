@@ -7,7 +7,11 @@ class App < Sinatra::Base
   end
 
   get "/wiki" do
-    @data = JSON.parse(File.open("data/history.json").read)
+    db = SQLite3::Database.open "data/Default/History2"
+    #stm = db.prepare "SELECT * FROM sqlite_master WHERE type='table';"
+    stm = db.prepare "SELECT * FROM urls;"
+    @rs = stm.execute 
+    
     haml :wiki
   end
 
