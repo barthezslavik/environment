@@ -1,0 +1,7 @@
+.panel
+  .panel-body
+    - @result.each_slice(4) do |r|
+      .col-md-2
+        - r.each do |rr|
+          = rr
+          %br

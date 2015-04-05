@@ -29,17 +29,26 @@ class App < Sinatra::Base
         if line.include?(".")
           next if line.include?("#")
           next if line.split(".").count > 2
+          #abort line.inspect if line.include?("text")
           if line.include?("(")
             line = line[/\.(.*?)\(/m, 1]
           else
             line = line[/\.(.*?) /m, 1]
           end
+          next if line.include?("{") rescue next
+          next if line.include?("'") rescue next
+          next if line.include?("]") rescue next
+          next if line.include?(",") rescue next
           @lines << line 
         end
       end
     end
-    @lines = @lines - [nil, "string", "datetime", "integer", "boolean", "decimal"]
-    abort freq(@lines).sort_by{ |k,v| v }.reverse.inspect
+    @lines = @lines - [nil, "string", "datetime", "integer", "boolean", "decimal", "text"]
+    @result = freq(@lines).sort_by{ |k,v| v }.reverse
+    @result = @result.map{|k,v|k.gsub("]","")}
+    @result = @result - ["", "X", "0", "SOCKSProxy"]
+    @result = @result.sort
+    haml :ruby
   end
 
  def freq(words)
@@ -49,5 +58,4 @@ class App < Sinatra::Base
       [w, ws.length]
     end]
   end
-
 end
