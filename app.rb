@@ -6,16 +6,33 @@ class App < Sinatra::Base
     haml :dashboard
   end
 
+  get "/math" do
+    @command = "curl https://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D1%80%D1%82%D0%B0%D0%BB:%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0"
+    
+    @respond = `#{@command}`
+    @content = Nokogiri::HTML(@respond, nil, 'UTF-8')
+    
+    @links = []
+    
+    @content.css("a").map do |a|
+      @links << a.text# if a.text.include?("/wiki/") rescue ""
+    end
+
+    @links = @links - ["", nil]
+    @links = @links[96..276]
+
+    haml :math
+  end
+
   get "/wiki" do
     db = SQLite3::Database.open "data/Default/History2"
-    #stm = db.prepare "SELECT * FROM sqlite_master WHERE type='table';"
     stm = db.prepare "SELECT * FROM urls;"
     @rs = stm.execute 
-    
     haml :wiki
   end
 
   get "/ruby" do
+    
     #@a = `cd ~/ror/allunlock/ && find -type f`.split("\n")
     #File.write("data/files", @a)
    

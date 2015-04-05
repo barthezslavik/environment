@@ -1,0 +1,7 @@
+.panel
+  .panel-body
+    .row
+      - @links.each_slice(4) do |link|
+        - (0..3).each do |i|
+          .col-md-4
+            = link[i]

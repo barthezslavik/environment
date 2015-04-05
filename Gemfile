@@ -8,6 +8,7 @@ gem "json"
 gem "faker"
 gem "sinatra-partial"
 gem "sqlite3"
+gem "nokogiri"
 
 group :development do
   gem "rake", "~> 10.0"
