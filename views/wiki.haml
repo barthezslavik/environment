@@ -1,0 +1,11 @@
+- @counter = 0
+
+- @data.each_with_index do |d,i|
+  - unless d["title"].empty?
+    - if d["title"].include? "Википедия"
+      /= d.inspect
+      /= Time.at(d["lastVisitTime"]).to_datetime
+      - @counter += 1
+      = @counter
+      = d["title"]
+      %br
