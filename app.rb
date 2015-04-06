@@ -7,20 +7,18 @@ class App < Sinatra::Base
   end
 
   get "/math" do
-    @command = "curl https://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D1%80%D1%82%D0%B0%D0%BB:%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0"
+    #@command = "curl https://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D1%80%D1%82%D0%B0%D0%BB:%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0"
+    #@respond = `#{@command}`
+    #@content = Nokogiri::HTML(@respond, nil, 'UTF-8')
+    #@links = []
+    #@content.css("a").map do |a|
+    #  next if ["",nil].include?(a)
+    #  @links << { text: a.text, url: a[:href] }
+    #end
+    #@links = @links[103..293]
+    #File.write("data/main", @links)
     
-    @respond = `#{@command}`
-    @content = Nokogiri::HTML(@respond, nil, 'UTF-8')
-    
-    @links = []
-    
-    @content.css("a").map do |a|
-      @links << a.text# if a.text.include?("/wiki/") rescue ""
-    end
-
-    @links = @links - ["", nil]
-    @links = @links[96..276]
-
+    @data = eval(File.open("data/main").read)
     haml :math
   end
 

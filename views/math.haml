@@ -1,7 +1,8 @@
 .panel
   .panel-body
     .row
-      - @links.each_slice(4) do |link|
+      - @data.each_slice(4) do |d|
         - (0..3).each do |i|
-          .col-md-4
-            = link[i]
+          - if @link = d[i]
+            .col-md-4
+              %a{ href: "https://ru.wikipedia.org#{@link[:url]}" }= @link[:text]
