@@ -19,6 +19,19 @@ class App < Sinatra::Base
     #File.write("data/main", @links)
     
     @data = eval(File.open("data/main").read)
+    
+    @data.each do |d|
+      @command = "curl https://ru.wikipedia.org/wiki/#{d[:url]}"
+      @respond = `#{@command}`
+      @content = Nokogiri::HTML(@respond, nil, 'UTF-8')
+      @thumbinner = @content.css(".thumbinner").map do |t|
+        t.css("img").map do |img|
+          abort img["href"].inspect
+        end
+      end
+      abort "stop".inspect
+    end
+
     haml :math
   end
 
