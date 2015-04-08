@@ -3,8 +3,8 @@ class App < Sinatra::Base
   register Sinatra::Partial
 
   get "/math" do
-    @data = eval(File.open("data/main").read)
-    @images = []
+    @data = eval(File.open("data/math").read)
+    @blocks = []
 
     @data[0..1].each do |d|
       f = File.open("/tmp/ready").read.split("\n")
@@ -13,11 +13,9 @@ class App < Sinatra::Base
       @respond = `#{@command}`
       @content = Nokogiri::HTML(@respond, nil, 'UTF-8')
       @thumbinner = @content.css(".thumbinner").map do |t|
-        t.css("img").map do |img|
-          @images << img["src"]
-        end
+        @blocks << t.inner_html
+        File.write("/tmp/ready", d[:url])
       end
-      File.write("/tmp/ready", d[:url])
     end
 
     haml :math
@@ -28,7 +26,7 @@ class App < Sinatra::Base
     haml :ruby
   end
 
- def freq(words)
+  def freq(words)
     Hash[words.group_by do |w|
       w
     end.map do |w, ws|

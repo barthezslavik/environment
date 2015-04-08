@@ -7,9 +7,11 @@
             .col-md-4
               %a{ href: "https://ru.wikipedia.org#{@link[:url]}" }= @link[:text]
 
-- @images.each do |image|
+- @blocks.each do |block|
   .col-md-3
     .panel
-      .panel-body
-        .text-center
-          %img{src: image}
+      .panel-body.text-center
+        = block
+      .panel-body{style: "word-wrap: break-word;"}
+        - c = html_escape(block)
+        - abort block[/\<a href(.*?)\>/].inspect
