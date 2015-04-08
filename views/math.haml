@@ -1,8 +1,15 @@
-.panel
-  .panel-body
-    .row
+- if @list
+  .panel
+    .panel-body
       - @data.each_slice(4) do |d|
         - (0..3).each do |i|
           - if @link = d[i]
             .col-md-4
               %a{ href: "https://ru.wikipedia.org#{@link[:url]}" }= @link[:text]
+
+- @images.each do |image|
+  .col-md-3
+    .panel
+      .panel-body
+        .text-center
+          %img{src: image}
