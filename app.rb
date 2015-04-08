@@ -2,19 +2,20 @@ class App < Sinatra::Base
   set public_folder: "public", static: true
   register Sinatra::Partial
 
+  get "/" do redirect '/math' end
+
   get "/math" do
     @data = eval(File.open("data/math").read)
     @blocks = []
 
     @data[0..1].each do |d|
-      f = File.open("/tmp/ready").read.split("\n")
-      next if f.include?(d[:url])
+      #next if read("data/ready").include?(d[:url])
       @command = "curl https://ru.wikipedia.org#{d[:url]}"
       @respond = `#{@command}`
       @content = Nokogiri::HTML(@respond, nil, 'UTF-8')
       @thumbinner = @content.css(".thumbinner").map do |t|
         @blocks << t.inner_html
-        File.write("/tmp/ready", d[:url])
+        File.write("data/ready", d[:url])
       end
     end
 
@@ -32,5 +33,14 @@ class App < Sinatra::Base
     end.map do |w, ws|
       [w, ws.length]
     end]
+  end
+
+  def read(file)
+    begin
+      eval(File.open(file).read.split("\n"))
+    rescue
+      `touch #{file}`
+      []
+    end
   end
 end

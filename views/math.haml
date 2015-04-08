@@ -6,12 +6,12 @@
           - if @link = d[i]
             .col-md-4
               %a{ href: "https://ru.wikipedia.org#{@link[:url]}" }= @link[:text]
-
-- @blocks.each do |block|
+/- abort @blocks.each_slice(4).to_a.inspect
+- @blocks.each_slice(4).to_a.transpose.each do |b|
   .col-md-3
     .panel
       .panel-body.text-center
-        = block
-      .panel-body{style: "word-wrap: break-word;"}
-        - c = html_escape(block)
-        - abort block[/\<a href(.*?)\>/].inspect
+        = b
+      /.panel-body{style: "word-wrap: break-word;"}
+      /  - c = html_escape(block)
+      /  - abort block[/\<a href(.*?)\>/].inspect
