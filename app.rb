@@ -16,10 +16,21 @@ class App < Sinatra::Base
       @thumbinner = @content.css(".thumbinner").map do |t|
         @blocks << t.inner_html
         File.write("data/ready", d[:url])
+        md5 = Digest::MD5.new
+        md5 << t.inner_html
+        File.write("data/images/#{md5.hexdigest}", t.inner_html)
       end
     end
 
     haml :math
+  end
+
+  get "/compile" do
+    @content = []
+    Dir["data/images/*"].each do |f|
+      @content << File.open(f).read
+    end
+    haml :compile
   end
 
   get "/ruby" do
