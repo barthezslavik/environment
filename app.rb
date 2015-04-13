@@ -8,17 +8,18 @@ class App < Sinatra::Base
     @data = eval(File.open("data/math").read)
     @blocks = []
 
-    @data.each do |d|
-      next if read("data/ready").include?(d[:url])
+    @data.each_with_index do |d,i|
+      #next if read("data/ready").include?(d[:url])
       @command = "curl https://ru.wikipedia.org#{d[:url]}"
       @respond = `#{@command}`
       @content = Nokogiri::HTML(@respond, nil, 'UTF-8')
       @thumbinner = @content.css(".thumbinner").map do |t|
         @blocks << t.inner_html
-        File.write("data/ready", d[:url])
+        #File.write("data/ready", d[:url])
         md5 = Digest::MD5.new
         md5 << t.inner_html
         File.write("data/images/#{md5.hexdigest}", t.inner_html)
+        #File.write("data/images/#{i}", t.inner_html)
       end
     end
 
