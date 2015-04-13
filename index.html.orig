@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+title
+=======
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
@@ -63,3 +66,4 @@ $ git checkout gh-pages
   </body>
 </html>
 
+>>>>>>> gh-pages
