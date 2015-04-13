@@ -1,0 +1,14 @@
+.col-md-4
+  .card
+    .listview
+      /.lv-header
+      /  Steps
+      .lv-body
+        - @steps.each do |step|
+          %a.lv-item{href: ""}
+            .media
+              .pull-left
+                %img.lv-img{alt: "", src: avatar(step[:author])}
+              .media-body
+                .lv-title= step[:author]
+                %small.lv-small= step[:content]

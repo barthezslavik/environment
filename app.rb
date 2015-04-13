@@ -39,6 +39,18 @@ class App < Sinatra::Base
     haml :ruby
   end
 
+  get "/steps" do
+    @steps = [
+      { author: "Slavik", content: "Макет" },
+      { author: "Ai", content: "Категории разделов" },
+      { author: "Slavik", content: "Сетка" },
+      { author: "Ai", content: "Изображения по категориям" },
+      { author: "Slavik", content: "Гитхаб" },
+      { author: "Slavik", content: "Шаги" },
+    ]
+    haml :steps
+  end
+
   def freq(words)
     Hash[words.group_by do |w|
       w
@@ -54,5 +66,10 @@ class App < Sinatra::Base
       `touch #{file}`
       []
     end
+  end
+
+  def avatar(author)
+    return "https://avatars1.githubusercontent.com/u/858547?v=3&s=460" if author == "Slavik"
+    return "img/profile-pics/ai.jpg" if author == "Ai"
   end
 end
