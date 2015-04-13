@@ -8,8 +8,8 @@ class App < Sinatra::Base
     @data = eval(File.open("data/math").read)
     @blocks = []
 
-    @data[0..1].each do |d|
-      #next if read("data/ready").include?(d[:url])
+    @data.each do |d|
+      next if read("data/ready").include?(d[:url])
       @command = "curl https://ru.wikipedia.org#{d[:url]}"
       @respond = `#{@command}`
       @content = Nokogiri::HTML(@respond, nil, 'UTF-8')
