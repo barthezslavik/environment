@@ -5,22 +5,22 @@ class App < Sinatra::Base
   get "/" do redirect '/math' end
 
   get "/math" do
-    @data = eval(File.open("data/math").read)
+    @data = eval File.open("data/math").read
+    @ready = read("data/ready")
     @blocks = []
 
     @data.each_with_index do |d,i|
-      #next if read("data/ready").include?(d[:url])
+      next if @ready.include?(d[:url])
       @command = "curl https://ru.wikipedia.org#{d[:url]}"
       @respond = `#{@command}`
       @content = Nokogiri::HTML(@respond, nil, 'UTF-8')
       @thumbinner = @content.css(".thumbinner").map do |t|
         @blocks << t.inner_html
-        #File.write("data/ready", d[:url])
         md5 = Digest::MD5.new
         md5 << t.inner_html
         File.write("data/images/#{md5.hexdigest}", t.inner_html)
-        #File.write("data/images/#{i}", t.inner_html)
       end
+      open('data/ready', 'a') { |f| f << "#{d[:url]}\n" }
     end
 
     haml :math
@@ -49,7 +49,7 @@ class App < Sinatra::Base
 
   def read(file)
     begin
-      eval(File.open(file).read.split("\n"))
+      File.open(file).read.split("\n")
     rescue
       `touch #{file}`
       []
