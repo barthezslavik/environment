@@ -29,7 +29,7 @@ class App < Sinatra::Base
   get "/compile" do
     @content = []
     Dir["data/images/*"].each do |f|
-      @content << File.open(f).read
+      @content << { file: f, content: File.open(f).read }
     end
     haml :compile
   end
