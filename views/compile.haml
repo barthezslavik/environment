@@ -1,7 +1,7 @@
 
 #wrapper
   #columns
-    - @content.shuffle.take(50).each do |c|
+    - @content.each do |c|
       .pin.text
         .row.p-10
           = c[:content]

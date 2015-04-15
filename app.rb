@@ -40,6 +40,10 @@ class App < Sinatra::Base
     redirect "/compile"
   end
 
+  get "/moved" do
+
+  end
+
   get "/ruby" do
     @result = eval(File.open("data/ruby").read)
     haml :ruby
