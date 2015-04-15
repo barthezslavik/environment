@@ -29,9 +29,15 @@ class App < Sinatra::Base
   get "/compile" do
     @content = []
     Dir["data/images/*"].each do |f|
-      @content << { file: f, content: File.open(f).read }
+      @content << { file: f, content: File.open(f).read } if File.file?(f)
     end
     haml :compile
+  end
+
+  get "/move" do
+    new_path = params[:file].split("/").insert(2, "moved").join("/")
+    `mv #{params[:file]} #{new_path}`
+    redirect "/compile"
   end
 
   get "/ruby" do
