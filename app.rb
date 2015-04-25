@@ -58,8 +58,9 @@ class App < Sinatra::Base
     redirect "/compile"
   end
 
-  get "/moved" do
-
+  get "/code" do
+    code = File.open("data/code.rb").read
+    abort code.inspect
   end
 
   get "/ruby" do
