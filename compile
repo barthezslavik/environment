@@ -1,2 +1,3 @@
 curl http://127.0.0.1:9393/images > index.html
 git checkout gh-pages
+git checkout master index.html
