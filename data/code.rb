@@ -1,1 +1,0 @@
-/home/slavik/ror/allunlock/app/controllers/invoice_payments_controller.rb

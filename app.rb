@@ -59,7 +59,7 @@ class App < Sinatra::Base
   end
 
   get "/code" do
-    code = File.open("data/code.rb").read
+    code = File.open("data/research.rb").read
     abort code.inspect
   end
 
