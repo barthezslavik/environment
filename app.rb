@@ -5,33 +5,51 @@ class App < Sinatra::Base
   get "/" do redirect '/math' end
 
   get "/math" do
-    @data = eval File.open("data/math").read
-    @ready = read("data/ready")
+    data = eval File.open("data/math").read
+    ready = read("data/ready")
     @blocks = []
+    data = data[0..2]
 
-    @data.each_with_index do |d,i|
-      next if @ready.include?(d[:url])
-      @command = "curl https://ru.wikipedia.org#{d[:url]}"
-      @respond = `#{@command}`
-      @content = Nokogiri::HTML(@respond, nil, 'UTF-8')
-      @thumbinner = @content.css(".thumbinner").map do |t|
+    hydra = Typhoeus::Hydra.new
+
+    requests = data.map do |d|
+      request = Typhoeus::Request.new("https://ru.wikipedia.org#{d[:url]}", followlocation: true)
+      hydra.queue(request)
+      request
+    end
+
+    hydra.run
+
+    responses = requests.map do |request|
+      content = Nokogiri::HTML(request.response.body, nil, 'UTF-8')
+      thumbinner = content.css(".thumbinner").map do |t|
         @blocks << t.inner_html
-        md5 = Digest::MD5.new
-        md5 << t.inner_html
-        File.write("data/images/#{md5.hexdigest}", t.inner_html)
       end
-      open('data/ready', 'a') { |f| f << "#{d[:url]}\n" }
     end
 
     haml :math
+
+    #next if @ready.include?(d[:url])
+    #@command = "curl https://ru.wikipedia.org#{d[:url]}"
+    #@respond = `#{@command}`
+    #@content = Nokogiri::HTML(@respond, nil, 'UTF-8')
+    #@thumbinner = @content.css(".thumbinner").map do |t|
+    #@blocks << t.inner_html
+    #md5 = Digest::MD5.new
+    #md5 << t.inner_html
+    #File.write("data/images/#{md5.hexdigest}", t.inner_html)
+    #end
+    #open('data/ready', 'a') { |f| f << "#{d[:url]}\n" }
+    #haml :math
   end
 
-  get "/compile" do
+  get "/images" do
     @content = []
     Dir["data/images/*"].each do |f|
-      @content << { file: f, content: File.open(f).read } if File.file?(f)
+      file_content = File.open(f).read.gsub("/wiki/","https://ru.wikipedia.org/wiki/") if File.file?(f)
+      @content << { file: f, content: file_content } if file_content
     end
-    haml :compile
+    haml :images
   end
 
   get "/move" do

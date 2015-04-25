@@ -9,6 +9,7 @@ gem "faker"
 gem "sinatra-partial"
 gem "sqlite3"
 gem "nokogiri"
+gem "typhoeus"
 
 group :development do
   gem "rake", "~> 10.0"
