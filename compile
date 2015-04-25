@@ -4,4 +4,4 @@ git checkout master index.html
 git add index.html
 git commit -m "compile index.html"
 git push
-git chechout master
+git checkout master
