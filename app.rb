@@ -59,8 +59,12 @@ class App < Sinatra::Base
   end
 
   get "/code" do
-    code = File.open("data/research.rb").read
-    abort code.inspect
+    #code = File.open("data/research.rb").read
+    #parser    = RubyParser.new
+    #ruby2ruby = Ruby2Ruby.new
+    #@sexp      = parser.process(code)
+    #ap @sexp
+    haml :code
   end
 
   get "/ruby" do

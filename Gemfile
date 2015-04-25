@@ -10,6 +10,9 @@ gem "sinatra-partial"
 gem "sqlite3"
 gem "nokogiri"
 gem "typhoeus"
+gem "ruby_parser"
+gem "ruby2ruby"
+gem "awesome_print"
 
 group :development do
   gem "rake", "~> 10.0"
