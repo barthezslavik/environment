@@ -1,5 +1,7 @@
 module Math
   def self.registered(app)
+    app.get "/" do redirect '/math' end
+
     app.get "/math" do
       data = eval File.open("data/math").read
       ready = read("data/ready")
